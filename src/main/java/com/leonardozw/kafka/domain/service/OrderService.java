@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.leonardozw.kafka.domain.dto.OrderDTO;
@@ -16,6 +17,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class OrderService {
 
+    private KafkaTemplate<String, String> kafkaTemplate;
+
     private OrderRepository orderRepository;
 
     public OrderDTO create(OrderDTO orderDTO) {
@@ -25,6 +28,9 @@ public class OrderService {
         order.setOrderAdress(orderDTO.orderAdress());
         order.setOrderPayment(orderDTO.orderPayment());
         orderRepository.save(order);
+        kafkaTemplate.send("order-invetory", orderDTO.orderItem());
+        kafkaTemplate.send("order-payment", orderDTO.orderPayment());
+        kafkaTemplate.send("order-shipping", orderDTO.orderAdress());
         return orderDTO;
     }
 
