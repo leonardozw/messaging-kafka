@@ -22,23 +22,23 @@ public class Order {
     private String orderItem;
     private LocalDateTime orderDate = LocalDateTime.now();
     private Double orderPrice;
-    private String orderAdress;
+    private String orderAddress;
     private String orderPayment;
 
-    public Order(Long id, String orderItem, LocalDateTime orderDate, Double orderPrice, String orderAdress,
+    public Order(Long id, String orderItem, LocalDateTime orderDate, Double orderPrice, String orderAddress,
             String orderPayment) {
         this.id = id;
         this.orderItem = orderItem;
         this.orderDate = LocalDateTime.now();
         this.orderPrice = orderPrice;
-        this.orderAdress = orderAdress;
+        this.orderAddress = orderAddress;
         this.orderPayment = orderPayment;
     }
 
     public Order(String orderItem, Double orderPrice, String orderAdress, String orderPayment) {
         this.orderItem = orderItem;
         this.orderPrice = orderPrice;
-        this.orderAdress = orderAdress;
+        this.orderAddress = orderAdress;
         this.orderPayment = orderPayment;
     }
 

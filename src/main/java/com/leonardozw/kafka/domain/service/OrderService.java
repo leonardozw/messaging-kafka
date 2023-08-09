@@ -25,12 +25,12 @@ public class OrderService {
         Order order = new Order();
         order.setOrderItem(orderDTO.orderItem());
         order.setOrderPrice(orderDTO.orderPrice());
-        order.setOrderAdress(orderDTO.orderAdress());
+        order.setOrderAddress(orderDTO.orderAddress());
         order.setOrderPayment(orderDTO.orderPayment());
         orderRepository.save(order);
-        kafkaTemplate.send("order-invetory", orderDTO.orderItem());
+        kafkaTemplate.send("order-inventory", orderDTO.orderItem());
         kafkaTemplate.send("order-payment", orderDTO.orderPayment());
-        kafkaTemplate.send("order-shipping", orderDTO.orderAdress());
+        kafkaTemplate.send("order-shipping", orderDTO.orderAddress());
         return orderDTO;
     }
 
@@ -38,7 +38,7 @@ public class OrderService {
         Sort sort = Sort.by("orderPrice").descending();
         List<Order> orders = orderRepository.findAll(sort);
         return orders.stream()
-                .map(o -> new OrderDTO(o.getOrderItem(), o.getOrderPrice(), o.getOrderAdress(), o.getOrderPayment()))
+                .map(o -> new OrderDTO(o.getOrderItem(), o.getOrderPrice(), o.getOrderAddress(), o.getOrderPayment()))
                 .collect(Collectors.toList());
     }
 }
