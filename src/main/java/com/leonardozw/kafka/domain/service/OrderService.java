@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class OrderService {
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, OrderDTO> kafkaTemplate;
 
     private OrderRepository orderRepository;
 
@@ -28,9 +28,9 @@ public class OrderService {
         order.setOrderAddress(orderDTO.orderAddress());
         order.setOrderPayment(orderDTO.orderPayment());
         orderRepository.save(order);
-        kafkaTemplate.send("order-inventory", orderDTO.orderItem());
-        kafkaTemplate.send("order-payment", orderDTO.orderPayment());
-        kafkaTemplate.send("order-shipping", orderDTO.orderAddress());
+        kafkaTemplate.send("order-created-inventory", orderDTO);
+        kafkaTemplate.send("order-created-payment", orderDTO);
+        kafkaTemplate.send("order-created-shipping", orderDTO);
         return orderDTO;
     }
 
