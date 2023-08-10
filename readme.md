@@ -2,7 +2,7 @@
 
   
 
-### **Para visualizar os diagramas será necessário ter instalado em seu browser alguma extensão que permita visualizar diagramas mermaid, [exemplo](https://addons.opera.com/en/extensions/details/markdown-diagrams/).**
+### **Para visualizar os diagramas talvez será necessário ter instalado em seu browser alguma extensão que permita visualizar diagramas mermaid.**
 
   
 
